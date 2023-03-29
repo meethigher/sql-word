@@ -6,7 +6,7 @@
 
     <groupId>top.meethigher</groupId>
     <artifactId>sql-word</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
 
     <properties>
@@ -75,10 +75,39 @@
             </exclusions>
         </dependency>
 
+        <!--postgresql驱动-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.2</version>
+        </dependency>
+
+        <!--mysql驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.25</version>
+        </dependency>
+
+        <!--oracle驱动-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.3</version>
+        </dependency>
+
+        <!--sqlserver驱动-->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>9.2.1.jre8</version>
+        </dependency>
+
+        <!-- db2驱动 -->
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc</artifactId>
+            <version>db2jcc4</version>
         </dependency>
 
 
@@ -110,7 +139,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>3.4.0</version>
                 <executions>
 
                     <execution>
@@ -127,6 +156,19 @@
                                     <mainClass>top.meethigher.Application</mainClass>
                                 </transformer>
                             </transformers>
+                            <!--https://blog.csdn.net/weixin_51172484/article/details/127894334-->
+                            <!--解决问题：Invalid signature file digest for Manifest main attributes-->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>
